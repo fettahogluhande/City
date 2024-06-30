@@ -1,5 +1,7 @@
 package com.hafnium.City.controller;
 
+import com.hafnium.City.dto.request.CityRequestDto;
+import com.hafnium.City.dto.response.CityResponseDto;
 import com.hafnium.City.model.City;
 import com.hafnium.City.service.CityService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +16,7 @@ public class CityController {
     private final CityService cityService;
 
     @PostMapping
-    public City createCity(@RequestBody City city) {
+    public CityResponseDto createCity(@RequestBody CityRequestDto city) {
         return cityService.createCity(city);
     }
 

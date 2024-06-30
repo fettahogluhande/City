@@ -1,5 +1,7 @@
 package com.hafnium.City.service;
 
+import com.hafnium.City.dto.request.CityRequestDto;
+import com.hafnium.City.dto.response.CityResponseDto;
 import com.hafnium.City.model.City;
 import com.hafnium.City.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +16,18 @@ import java.util.Objects;
 public class CityService {
     private final CityRepository cityRepository;
 
-    public City createCity(City city) {
-        city.setCreatedDate(new Date());
-        return cityRepository.save(city);
+    public CityResponseDto createCity(CityRequestDto city) {
+        City newCity = new City();
+        newCity.setCityName(city.getCityName());
+        newCity.setCreatedDate(new Date());
+
+        City saveCity = new City();
+        saveCity = cityRepository.save(newCity);
+
+        CityResponseDto cityResponseDto = new CityResponseDto();
+        cityResponseDto.setCityName(saveCity.getCityName());
+        cityResponseDto.setCreatedDate(saveCity.getCreatedDate());
+        return cityResponseDto;
     }
 
     public List<City> getAllCities(String cityName) {
